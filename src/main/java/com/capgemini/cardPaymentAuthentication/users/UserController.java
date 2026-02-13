@@ -1,12 +1,8 @@
 package com.capgemini.cardPaymentAuthentication.users;
 
-import org.springframework.http.HttpStatusCode;
-import org.springframework.web.ErrorResponse;
-import org.springframework.web.bind.annotation.*;
 
+import org.springframework.web.bind.annotation.*;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/auth")
@@ -19,13 +15,12 @@ public class UserController {
 
     @GetMapping(path = "/users")
     public List<User> getUsers(){
-        System.out.println("HI");
         return userRepository.findAll();
     }
 
     @GetMapping(path =  "/users/{id}")
     public List<User> getUserById(@PathVariable int id){
-        return userRepository.findByUser_id(id);
+        return userRepository.findByUserId(id);
     }
 
     @PostMapping(path = "/login")

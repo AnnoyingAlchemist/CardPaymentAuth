@@ -1,11 +1,9 @@
 package com.capgemini.cardPaymentAuthentication;
 
-import com.capgemini.cardPaymentAuthentication.users.UserController;
-import com.capgemini.cardPaymentAuthentication.users.UserRepository;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.jdbc.autoconfigure.DataSourceAutoConfiguration;
-//TODO: REMOVE THE (exclude = {DataSourceAutoConfiguration.class}) when adding a database
+
 @SpringBootApplication
 public class CardPaymentAuthenticationApplication {
 
