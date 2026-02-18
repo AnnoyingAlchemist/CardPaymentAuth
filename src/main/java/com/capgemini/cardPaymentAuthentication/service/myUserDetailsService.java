@@ -40,7 +40,7 @@ public class myUserDetailsService implements UserDetailsService {
                 .build();
     }
 
-    @Bean
+
     public UserDetailsService userDetailsService(){
         return new myUserDetailsService();
     }
