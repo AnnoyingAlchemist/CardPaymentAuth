@@ -9,30 +9,30 @@ import lombok.Setter;
 @Getter
 @Entity
 @Table(name="users")
-public class User{
+public class CardOpUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    String userId;
+    private String userId;
 
     @Column(nullable = false)
-    String username;
+    private String username;
 
     @Column(nullable = false)
     //BCrypt hashed
-    String password_hash;
+    private String password_hash;
 
     @Column(nullable = false)
-    String roles;
+    private String roles;
 
     @Column(nullable = false)
-    String full_name;
+    private String full_name;
 
     @Column
-    String email;
+    private String email;
 
     @Column
-    Boolean active;
+    private Boolean active;
     @Column
-    String created_at;
+    private String created_at;
 
 }

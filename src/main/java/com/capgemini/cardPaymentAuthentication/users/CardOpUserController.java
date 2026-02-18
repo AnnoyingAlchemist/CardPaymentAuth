@@ -6,21 +6,21 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/auth")
-public class UserController {
-    private final UserRepository userRepository;
+public class CardOpUserController {
+    private final CardOpUserRepository cardOpUserRepository;
 
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public CardOpUserController(CardOpUserRepository cardOpUserRepository) {
+        this.cardOpUserRepository = cardOpUserRepository;
     }
 
     @GetMapping(path = "/users")
-    public List<User> getUsers(){
-        return userRepository.findAll();
+    public List<CardOpUser> getUsers(){
+        return cardOpUserRepository.findAll();
     }
 
     @GetMapping(path =  "/users/{id}")
-    public List<User> getUserById(@PathVariable int id){
-        return userRepository.findByUserId(id);
+    public CardOpUser getUserById(@PathVariable String id){
+        return cardOpUserRepository.findByUserId(id);
     }
 
     @PostMapping(path = "/login")
