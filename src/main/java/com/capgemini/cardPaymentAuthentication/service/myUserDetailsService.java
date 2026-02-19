@@ -22,14 +22,16 @@ public class myUserDetailsService implements UserDetailsService {
     private CardOpUserRepository userRepo;
 
 /*
+
     public CardOpUser createCardOpUser(CardOpUser user) throws BadRequestException {
-        if (user.getUserId() == null ||
+        if (user.getUsername() == null ||
                 user.getPassword_hash() == null || user.getRoles() == null) {
-            throw new BadRequestException("User ID and Password required");
+            throw new BadRequestException("User ID, Password, and role is required");
         }
         return userRepo.save(user);
     }
-*/
+ */
+
     public CardOpUser getUserFromUsername(String username){
         return userRepo.findByUserId(username);
 

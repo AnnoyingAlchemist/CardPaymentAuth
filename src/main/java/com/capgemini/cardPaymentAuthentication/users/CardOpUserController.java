@@ -2,7 +2,6 @@ package com.capgemini.cardPaymentAuthentication.users;
 
 
 import com.capgemini.cardPaymentAuthentication.service.myUserDetailsService;
-import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -32,12 +31,14 @@ public class CardOpUserController {
         return cardOpUserRepository.findByUserId(id);
     }
 
-    @PostMapping(path="/users/create")
-    public void saveCardOpUser(@RequestBody String username,
-                                     @RequestBody String password) throws BadRequestException {
+    //Endpoint for testing ONLY
+    @PostMapping("/create")
+    public void createCardOpUser(@RequestParam String username,
+                                   @RequestParam String password){
         CardOpUser user = new CardOpUser();
         user.setUsername(username);
         user.setPassword_hash(passwordEncoder.encode(password));
+        user.setRoles("test");
 
         cardOpUserRepository.save(user);
     }

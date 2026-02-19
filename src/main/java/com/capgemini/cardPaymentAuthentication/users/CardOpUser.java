@@ -2,6 +2,7 @@ package com.capgemini.cardPaymentAuthentication.users;
 
 
 import jakarta.persistence.*;
+import java.time.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +12,7 @@ import lombok.Setter;
 @Table(name="users")
 public class CardOpUser {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO )
     private String userId;
 
     @Column(nullable = false)
@@ -33,6 +34,6 @@ public class CardOpUser {
     @Column
     private Boolean active;
     @Column
-    private String created_at;
+    private LocalDateTime created_at;
 
 }

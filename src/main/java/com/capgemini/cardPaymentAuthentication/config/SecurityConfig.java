@@ -34,12 +34,12 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         request -> request
-                                .requestMatchers("/auth/users/create")
+                                .requestMatchers("/auth/create")
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated())
                 .httpBasic(Customizer.withDefaults());
-                //.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS ));
+                //.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED));
         //http.formLogin(Customizer.withDefaults()); // Enables form
 
         return http.build();
@@ -52,7 +52,8 @@ public class SecurityConfig {
 
    @Bean
     public AuthenticationManager authenticationManager(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder){
-       DaoAuthenticationProvider provider = new DaoAuthenticationProvider(userDetailsService);
+       DaoAuthenticationProvider provider =
+               new DaoAuthenticationProvider(userDetailsService);
        provider.setPasswordEncoder(passwordEncoder);
        //provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
        return new ProviderManager(provider);

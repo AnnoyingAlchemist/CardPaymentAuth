@@ -1,5 +1,6 @@
 package com.capgemini.cardPaymentAuthentication;
 
+import com.capgemini.cardPaymentAuthentication.users.CardOpUser;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;
 import org.springframework.boot.SpringApplication;
