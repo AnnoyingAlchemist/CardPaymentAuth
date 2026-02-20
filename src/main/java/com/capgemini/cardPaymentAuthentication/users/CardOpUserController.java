@@ -1,8 +1,13 @@
 package com.capgemini.cardPaymentAuthentication.users;
 
 
+import com.capgemini.cardPaymentAuthentication.AuthRequest;
+import com.capgemini.cardPaymentAuthentication.service.JwtService;
 import com.capgemini.cardPaymentAuthentication.service.myUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -12,6 +17,10 @@ import java.util.List;
 public class CardOpUserController {
     private final CardOpUserRepository cardOpUserRepository;
     private final myUserDetailsService myUserDetailsService;
+    private AuthenticationManager authenticationManager;
+    @Autowired
+    private JwtService jwtService;
+
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -43,9 +52,18 @@ public class CardOpUserController {
         cardOpUserRepository.save(user);
     }
 
-    @PostMapping(path = "/login")
-    public boolean Login(){
-        return true;
+    @PostMapping(path = "/authentiicate")
+    public String authenticate(@RequestBody AuthRequest authRequest){
+        Authentication authenticate = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                authRequest.getUsername(),
+                authRequest.getPassword()));
+
+        if(authenticate.isAuthenticated()){
+            return jwtService.generateToken(authRequest.getUsername());
+        }
+        return null;
+
     }
 
     @PostMapping(path = "/token/system")

@@ -11,6 +11,7 @@ import lombok.Setter;
 @Entity
 @Table(name="users")
 public class CardOpUser {
+    //GenerationType AUTO used since other strategies do not seem to work with the db
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO )
     private String userId;

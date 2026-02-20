@@ -1,5 +1,6 @@
 package com.capgemini.cardPaymentAuthentication.config;
 import com.capgemini.cardPaymentAuthentication.service.myUserDetailsService;
+import io.jsonwebtoken.Jwt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +20,7 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
 @Configuration
@@ -27,6 +29,8 @@ public class SecurityConfig {
 
     @Autowired
     private UserDetailsService userDetailsService;
+    @Autowired
+    private JwtFilter jwtFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http){
@@ -34,11 +38,12 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         request -> request
-                                .requestMatchers("/auth/create")
+                                .requestMatchers("/auth/authenticate")
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated())
-                .httpBasic(Customizer.withDefaults());
+                                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+                //.httpBasic(Customizer.withDefaults());
                 //.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED));
         //http.formLogin(Customizer.withDefaults()); // Enables form
 
