@@ -13,7 +13,7 @@ import java.util.HashMap;
 @Service
 public class JwtService {
 
-    public static final String SECRET = "sdj980guse97ytbh78wohg0";
+    public static final String SECRET = "d49fa20344c5928dc70dd3fca9c9b380";
     public String generateToken(String username){
         return Jwts.builder()
                 .setSubject(username)

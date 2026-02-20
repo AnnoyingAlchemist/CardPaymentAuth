@@ -17,6 +17,7 @@ import java.util.List;
 public class CardOpUserController {
     private final CardOpUserRepository cardOpUserRepository;
     private final myUserDetailsService myUserDetailsService;
+    @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
     private JwtService jwtService;
@@ -52,7 +53,7 @@ public class CardOpUserController {
         cardOpUserRepository.save(user);
     }
 
-    @PostMapping(path = "/authentiicate")
+    @PostMapping(path = "/login")
     public String authenticate(@RequestBody AuthRequest authRequest){
         Authentication authenticate = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
