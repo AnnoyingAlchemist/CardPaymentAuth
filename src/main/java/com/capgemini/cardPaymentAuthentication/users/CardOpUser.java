@@ -24,6 +24,7 @@ public class CardOpUser {
     private String password_hash;
 
     @Column(nullable = false)
+    //@Enumerated(EnumType.STRING)
     private String roles;
 
     @Column(nullable = false)
