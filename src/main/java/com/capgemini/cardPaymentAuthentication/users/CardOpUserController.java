@@ -49,7 +49,7 @@ public class CardOpUserController {
         return cardOpUserRepository.findByUserId(id);
     }
 
-    //Endpoint for testing ONLY
+    //Should only be accessible by admin roles
     @PostMapping("/create")
     @Operation(summary = "Creates a user in the database. Username must be unique.")
     public void createCardOpUser(@RequestParam String username,
