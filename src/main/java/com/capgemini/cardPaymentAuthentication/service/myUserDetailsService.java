@@ -2,11 +2,9 @@ package com.capgemini.cardPaymentAuthentication.service;
 
 import com.capgemini.cardPaymentAuthentication.users.CardOpUser;
 import com.capgemini.cardPaymentAuthentication.users.CardOpUserRepository;
-import org.apache.coyote.BadRequestException;
-import org.jspecify.annotations.NonNull;
+
 import org.jspecify.annotations.NullMarked;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -33,9 +31,15 @@ public class myUserDetailsService implements UserDetailsService {
  */
 
     public CardOpUser getUserFromUsername(String username){
-        return userRepo.findByUserId(username);
+        return userRepo.findByUsername(username);
 
     }
+
+    public CardOpUser getUserFromUserId(String userId){
+        return userRepo.findByUserId(userId);
+
+    }
+
 
     @Override
     @NullMarked
