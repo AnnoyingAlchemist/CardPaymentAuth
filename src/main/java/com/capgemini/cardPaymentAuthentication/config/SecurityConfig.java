@@ -1,8 +1,10 @@
 package com.capgemini.cardPaymentAuthentication.config;
 import com.capgemini.cardPaymentAuthentication.service.myUserDetailsService;
+import com.capgemini.cardPaymentAuthentication.users.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -33,6 +35,14 @@ public class SecurityConfig {
                         request -> request
                                 .requestMatchers("/auth/login","/swagger-ui/**","/v3/api-docs*/**")
                                 .permitAll()
+
+                                .requestMatchers(HttpMethod.POST, "/auth/create")
+                                .hasRole(Role.SYSTEM.name())
+
+                                .requestMatchers(HttpMethod.POST, "/auth/users/**")
+                                .hasAnyRole(Role.SYSTEM.name(), Role.OPS_MANAGER.name())
+
+
                                 .anyRequest()
                                 .authenticated())
                                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

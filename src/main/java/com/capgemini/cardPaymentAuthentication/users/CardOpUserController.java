@@ -80,7 +80,13 @@ public class CardOpUserController {
                 authRequest.getPassword()));
 
         if(authenticate.isAuthenticated()){
-            return jwtService.generateToken(authRequest.getUsername());
+            String role = authenticate
+                            .getAuthorities()
+                            .iterator().
+                            next()
+                            .getAuthority()
+                            .replace("ROLE_","");
+            return jwtService.generateToken(authRequest.getUsername(),role);
         }
         } catch (AuthenticationException e) {
             return "Incorrect credentials";
