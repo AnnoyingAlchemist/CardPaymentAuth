@@ -5,6 +5,7 @@ import com.capgemini.cardPaymentAuthentication.AuthRequest;
 import com.capgemini.cardPaymentAuthentication.service.JwtService;
 import com.capgemini.cardPaymentAuthentication.service.myUserDetailsService;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.constraints.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionFailedException;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,6 +15,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -42,6 +44,13 @@ public class CardOpUserController {
         return cardOpUserRepository.findAll();
     }
 
+    /*
+    @GetMapping(path = "/users/me")
+    @Operation(summary = "Returns the current user")
+    public String getCurrentUser(Principal user){
+        return user.getName();
+    }
+    */
 
     @GetMapping(path =  "/users/{id}")
     @Operation(summary = "Finds a user by their id.")
@@ -53,6 +62,8 @@ public class CardOpUserController {
     @PostMapping("/create")
     @Operation(summary = "Creates a user in the database. Username must be unique.")
     public void createCardOpUser(@RequestParam String username,
+                                 @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{4,12}$",
+                                         message = "password must be min 4 and max 12 length containing atleast 1 uppercase, 1 lowercase, 1 special character and 1 digit ")
                                  @RequestParam String password,
                                  @RequestParam Role role,
                                  @RequestParam(required = false) String email,
@@ -69,7 +80,7 @@ public class CardOpUserController {
         cardOpUserRepository.save(user);
     }
 
-    @PostMapping(path = "/login")
+    @GetMapping(path = "/login")
     @Operation(summary = "Generates JWT token when given correct username / password.")
     public String authenticate(@RequestBody AuthRequest authRequest){
         try{

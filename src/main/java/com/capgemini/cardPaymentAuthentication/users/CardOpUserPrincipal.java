@@ -1,5 +1,7 @@
 package com.capgemini.cardPaymentAuthentication.users;
 
+import jakarta.validation.constraints.Null;
+import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -29,6 +31,7 @@ public class CardOpUserPrincipal implements UserDetails {
     }
 
     @Override
+    @NullMarked
     public String getUsername() {
         return user.getUserId();
     }

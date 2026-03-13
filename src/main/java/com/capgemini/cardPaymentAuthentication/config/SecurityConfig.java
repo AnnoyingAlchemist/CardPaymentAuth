@@ -37,7 +37,7 @@ public class SecurityConfig {
                                 .permitAll()
 
                                 .requestMatchers(HttpMethod.POST, "/auth/create")
-                                .hasRole(Role.SYSTEM.name())
+                                .hasAnyRole(Role.SYSTEM.name())
 
                                 .requestMatchers(HttpMethod.GET, "/auth/users/**")
                                 .hasAnyRole(Role.SYSTEM.name())
